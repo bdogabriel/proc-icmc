@@ -1,0 +1,108 @@
+Archive Project report for AP9
+Wed Aug  6 12:44:00 2025
+Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Archive Project Summary
+  3. Archive Project Messages
+  4. Files Archived
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
+
+
+
++----------------------------------------------------------------+
+; Archive Project Summary                                        ;
++------------------------+---------------------------------------+
+; Archive Project Status ; Successful - Wed Aug  6 12:44:00 2025 ;
+; Revision Name          ; AP9                                   ;
+; Top-level Entity Name  ; AP9                                   ;
+; Family                 ; Cyclone V                             ;
++------------------------+---------------------------------------+
+
+
++--------------------------+
+; Archive Project Messages ;
++--------------------------+
+Info: File Set 'Custom' contains:
+    Info: Programming output files
+    Info: Automatically detected source files
+    Info: Project source and settings files
+Warning: Hierarchical Platform Designer systems and custom IP components(_hw.tcl and associated files) are not archived by the Quartus Archiver
+Info: Archive will store files relative to the closest common parent directory
+Info (13213): Using common directory /
+Info: ----------------------------------------------------------
+Info: ----------------------------------------------------------
+Info: Generated archive '/var/home/giroto/Documents/AP9_RGB8.qar'
+Info: ----------------------------------------------------------
+Info: ----------------------------------------------------------
+Info: Generated report 'AP9.archive.rpt'
+Info (23030): Evaluation of Tcl script /var/home/giroto/Applications/intelFPGA_lite/24.1std/quartus/common/tcl/apps/qpm/qar.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 831 megabytes
+    Info: Processing ended: Wed Aug  6 12:44:00 2025
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+
++-------------------------------------------------------+
+; Files Archived                                        ;
++-------------------------------------------------------+
+; File Name                                             ;
++-------------------------------------------------------+
+; /home/giroto/Documents/AP9_restored2/AP9.bdf          ;
+; /home/giroto/Documents/AP9_restored2/charmap.mif      ;
+; /home/giroto/Documents/AP9_restored2/clk_div.vhd      ;
+; /home/giroto/Documents/AP9_restored2/color_bridge.vhd ;
+; /home/giroto/Documents/AP9_restored2/cpu.vhd          ;
+; /home/giroto/Documents/AP9_restored2/cpuram.mif       ;
+; /home/giroto/Documents/AP9_restored2/debounce.vhd     ;
+; /home/giroto/Documents/AP9_restored2/dec_keyboard.vhd ;
+; /home/giroto/Documents/AP9_restored2/DEMUX.bdf        ;
+; /home/giroto/Documents/AP9_restored2/fifo0.vhd        ;
+; /home/giroto/Documents/AP9_restored2/keyboard.vhd     ;
+; /home/giroto/Documents/AP9_restored2/lpm_dff0.vhd     ;
+; /home/giroto/Documents/AP9_restored2/lpm_dff1.vhd     ;
+; /home/giroto/Documents/AP9_restored2/lpm_dff2.vhd     ;
+; /home/giroto/Documents/AP9_restored2/lpm_ram_dq0.vhd  ;
+; /home/giroto/Documents/AP9_restored2/lpm_rom0.vhd     ;
+; /home/giroto/Documents/AP9_restored2/POS_CONV.vhd     ;
+; /home/giroto/Documents/AP9_restored2/RAM.vhd          ;
+; /home/giroto/Documents/AP9_restored2/SeletorClock.v   ;
+; /home/giroto/Documents/AP9_restored2/TEXT_DRAWER.vhd  ;
+; /home/giroto/Documents/AP9_restored2/VGA_MOD.bdf      ;
+; /home/giroto/Documents/AP9_restored2/vga_sync.vhd     ;
+; /home/giroto/Documents/AP9_restored2/VIDEO_FILTER.bdf ;
+; AP9.bdf                                               ;
+; AP9.jdi                                               ;
+; AP9.qpf                                               ;
+; AP9.qsf                                               ;
+; AP9.sld                                               ;
+; AP9.sof                                               ;
+; AP9_assignment_defaults.qdf                           ;
+; DE0_CV_Main_Pins.tcl                                  ;
++-------------------------------------------------------+
+
+

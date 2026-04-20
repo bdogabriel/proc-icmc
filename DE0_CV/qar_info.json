@@ -1,0 +1,7 @@
+{
+	"common_dir" : "/var/home/giroto/Documents/FPGA/DE0_CV-3/",
+	"acds_version" : "Version 24.1std.0",
+	"platform" : "linux",
+	"os" : "Fedora Core",
+	"qpf" : "AP9.qpf"
+}

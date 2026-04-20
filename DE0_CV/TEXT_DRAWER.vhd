@@ -1,0 +1,105 @@
+LIBRARY IEEE;
+
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_ARITH.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+ENTITY TEXT_DRAWER IS
+    PORT (
+        CLK         :  IN STD_LOGIC;
+        RST         :  IN STD_LOGIC;
+        DRAW        :  IN STD_LOGIC;
+        CHAR        :  IN STD_LOGIC_VECTOR( 7 DOWNTO 0);
+        XPOS        :  IN STD_LOGIC_VECTOR( 5 DOWNTO 0);
+        YPOS        :  IN STD_LOGIC_VECTOR( 4 DOWNTO 0);
+        COLOR       :  IN STD_LOGIC_VECTOR( 7 DOWNTO 0);
+        CHARLINEDATA:  IN STD_LOGIC_VECTOR( 7 DOWNTO 0);
+        CHARADDR    : OUT STD_LOGIC_VECTOR(10 DOWNTO 0);
+        DATA        : OUT STD_LOGIC_VECTOR(24 DOWNTO 0);
+        DATA_QUEUE  : OUT STD_LOGIC
+    );
+END TEXT_DRAWER;
+
+ARCHITECTURE main OF TEXT_DRAWER IS
+    SIGNAL STATE: STD_LOGIC_VECTOR(3 DOWNTO 0);
+BEGIN
+    PROCESS (CLK, RST)
+        VARIABLE PREVCHAR : STD_LOGIC_VECTOR( 7 DOWNTO 0);
+        VARIABLE PREVXPOS : STD_LOGIC_VECTOR( 5 DOWNTO 0);
+        VARIABLE PREVYPOS : STD_LOGIC_VECTOR( 4 DOWNTO 0);
+        VARIABLE PREVCOLOR: STD_LOGIC_VECTOR( 7 DOWNTO 0);
+        VARIABLE OUTDATA  : STD_LOGIC_VECTOR(24 DOWNTO 0);
+        VARIABLE PIXCNT   : STD_LOGIC_VECTOR( 3 DOWNTO 0);
+        VARIABLE PIXAUX   : STD_LOGIC_VECTOR( 2 DOWNTO 0);
+        VARIABLE LNCNT    : STD_LOGIC_VECTOR( 3 DOWNTO 0);
+        VARIABLE LNAUX    : STD_LOGIC_VECTOR( 3 DOWNTO 0);
+        VARIABLE XP       : STD_LOGIC_VECTOR( 8 DOWNTO 0);
+        VARIABLE YP       : STD_LOGIC_VECTOR( 7 DOWNTO 0);
+    BEGIN
+        IF (RST = '1') THEN
+            OUTDATA := "0000000000000000000000000";
+            PIXCNT := x"0";
+            LNCNT := x"0";
+            PREVXPOS := "111111";
+            XP := "000000000";
+            YP := "00000000";
+            STATE <= x"0";
+            DATA_QUEUE <= '0';
+        ELSIF(CLK'EVENT AND CLK = '1') THEN
+            CASE STATE IS
+                WHEN x"0" =>
+                    --DEFINIR BOUNDARIES PARA O CARACTER
+                    IF(DRAW = '1' AND NOT(PREVCHAR = CHAR AND PREVXPOS = XPOS AND PREVYPOS = YPOS AND PREVCOLOR = COLOR)) THEN
+                        PREVCHAR := CHAR;
+                        PREVXPOS := XPOS;
+                        PREVYPOS := YPOS;
+                        PREVCOLOR := COLOR;
+                        LNCNT := x"0";
+								
+                            XP := XPOS & "000";
+                            YP := YPOS & "000";
+                            IF(XP <= 312 AND YP <= 232) THEN
+                                STATE <= x"1";
+                            END IF;
+                    END IF;
+                WHEN x"1" =>
+                        LNAUX := LNCNT(3 DOWNTO 0);
+                    CHARADDR <= CHAR & LNAUX(2 DOWNTO 0);
+                    PIXCNT := x"0";
+                    STATE <= x"2";
+                WHEN x"2" =>
+                        PIXAUX := PIXCNT(2 DOWNTO 0);
+                    OUTDATA(16 DOWNTO 0) := conv_std_logic_vector(conv_integer(PIXCNT + XP) + (320 * conv_integer(YP + LNCNT)), 17);
+                    IF(CHARLINEDATA(conv_integer(NOT PIXAUX)) = '1') THEN
+                        OUTDATA(24 DOWNTO 17) := COLOR;
+                    ELSE
+                        OUTDATA(24 DOWNTO 17) := x"00";
+                    END IF;
+                    DATA_QUEUE <= '1';
+                    IF PIXAUX = 7 THEN
+                        IF LNAUX = 7 THEN
+                            STATE <= x"5";
+                        ELSE
+                            LNCNT := LNCNT + '1';
+                            STATE <= x"4";
+                        END IF;
+                    ELSE
+                        PIXCNT := PIXCNT + '1';
+                        STATE <= x"3";
+                    END IF;
+                WHEN x"3" =>
+                    DATA_QUEUE <= '0';
+                    STATE <= x"2";
+                WHEN x"4" =>
+                    DATA_QUEUE <= '0';
+                    STATE <= x"1";
+                WHEN x"5" =>
+                    DATA_QUEUE <= '0';
+                    STATE <= x"0";
+                WHEN OTHERS =>
+                    STATE <= x"0";
+            END CASE;
+            DATA <= OUTDATA;
+        END IF;
+    END PROCESS;
+END main;
